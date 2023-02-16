@@ -11,6 +11,10 @@ body {
   font-family: ubuntu-regular;
 }
 
+.container {
+  width: 100%;
+}
+
 .font-bold {
   font-family: ubuntu-bold;
 }

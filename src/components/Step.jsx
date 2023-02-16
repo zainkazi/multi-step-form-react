@@ -7,8 +7,10 @@ const Step = ({ number, name }) => {
         {number}
       </div>
       <div>
-        <div className="font-regular text-[#d6d9e6]">Step {number}</div>
-        <div className="font-bold">{name}</div>
+        <div className="font-regular text-[#d6d9e6] text-[14px]">
+          Step {number}
+        </div>
+        <div className="font-bold text[15px]">{name}</div>
       </div>
     </div>
   );

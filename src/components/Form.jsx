@@ -5,6 +5,7 @@ import BackgroundSidebar from "../assets/images/bg-sidebar-desktop.svg";
 import Step from "./Step";
 import Addons from "./Addons";
 import Summary from "./Summary";
+import Thankyou from "./Thankyou";
 
 const Form = () => {
   return (
@@ -24,7 +25,7 @@ const Form = () => {
 
         <div className="flex flex-col justify-between py-5 mx-28 w-100 my-2">
           <div>
-            <Plan />
+            <Summary />
           </div>
           <div className="flex justify-between items-center">
             <div className="font-medium text-[#9699ab] cursor-pointer transition duration-100 hover:text-[#02295a]">
