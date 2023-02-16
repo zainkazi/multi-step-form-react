@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: hsl(229, 24%, 87%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: ubuntu-regular;
+}
+
+.font-bold {
+  font-family: ubuntu-bold;
+}
+
+.font-medium {
+  font-family: ubuntu-medium;
+}
+
+@font-face {
+  font-family: ubuntu-regular;
+  src: url(./assets/fonts/Ubuntu-Regular.ttf);
+}
+
+@font-face {
+  font-family: ubuntu-medium;
+  src: url(./assets/fonts/Ubuntu-Medium.ttf);
+}
+
+@font-face {
+  font-family: ubuntu-bold;
+  src: url(./assets/fonts/Ubuntu-Bold.ttf);
+}

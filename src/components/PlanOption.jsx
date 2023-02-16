@@ -1,0 +1,15 @@
+import React from "react";
+
+const PlanOption = ({ logo, title, price }) => {
+  return (
+    <div className="border border-[#d6d9e6] rounded-xl flex flex-col justify-between items-left pt-5 px-5 pr-14 cursor-pointer hover:border-[#473dff] focus:bg-violet-700">
+      <div className="mb-10">
+        <img src={logo} />
+      </div>
+      <div className="text-[#02295a] font-medium">{title}</div>
+      <div className="text-[14px] text-[#9699ab] mb-3">${price}/mo</div>
+    </div>
+  );
+};
+
+export default PlanOption;
