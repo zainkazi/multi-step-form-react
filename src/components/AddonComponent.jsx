@@ -2,7 +2,7 @@ import React from "react";
 
 const AddonComponent = ({ title, desc, price }) => {
   return (
-    <div className="flex justify-between items-center border border-[#d6d9e6] space-x-5 py-5 px-8 rounded-xl hover:border-[#02295a]">
+    <div className="flex justify-between items-center border border-[#d6d9e6] space-x-5 py-3 px-8 rounded-xl hover:border-[#02295a]">
       <div>
         <input className="w-4 h-4 mr-3" type="checkbox" />
       </div>
