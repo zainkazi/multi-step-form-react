@@ -4,16 +4,17 @@
 
 body {
   background-color: hsl(229, 24%, 87%);
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; */
   font-family: ubuntu-regular;
 }
 
-/* .container {
-  width: 100%;
-} */
+@media (min-width: 765px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+}
 
 .font-bold {
   font-family: ubuntu-bold;

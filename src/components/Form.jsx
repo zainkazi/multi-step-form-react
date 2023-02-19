@@ -11,9 +11,14 @@ import Thankyou from "./Thankyou";
 const Form = () => {
   const [stepNumber, setStepNumber] = useState(() => 1);
   const [goBackVisible, setGoBackVisible] = useState("invisible");
+  const [steps, setSteps] = useState([
+    { id: 1, title: "YOUR INFO", active: false },
+    { id: 2, title: "SELECT PLAN", active: false },
+    { id: 3, title: "ADD-ONS", active: false },
+    { id: 4, title: "SUMMARY", active: false },
+  ]);
 
   useEffect(() => {
-    console.log(stepNumber);
     if (stepNumber > 1) {
       setGoBackVisible("visible");
     } else {
@@ -33,29 +38,32 @@ const Form = () => {
     <div className="container">
       <div className="bg-[#d6d9e6] md:bg-white rounded-xl md:p-3 md:flex justify-center">
         <div className="relative">
-          <div>
-            <img className="hidden md:block" src={BackgroundSidebar} />
-            <img
-              className="block md:hidden w-full"
-              src={BackgroundSidebarMobile}
-            />
-          </div>
+          <img className="hidden md:block" src={BackgroundSidebar} />
+          <img
+            className="block md:hidden w-full"
+            src={BackgroundSidebarMobile}
+          />
+
           <div className="flex justify-center mt-8 absolute inset-0 space-x-10 md:space-x-0 md:block md:mt-0 md:pl-6 md:pt-8 md:space-y-7">
-            <Step number={1} name="YOUR INFO" />
-            <Step number={2} name="SELECT PLAN" />
-            <Step number={3} name="ADD-ONS" />
-            <Step number={4} name="SUMMARY" />
+            {steps.map((step) => (
+              <Step
+                key={step.id}
+                number={step.id}
+                title={step.title}
+                active={step.active}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="flex flex-col justify-between rounded-2xl mx-8 px-16 py-10 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
+        <div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl mx-8 px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
           <div>
-            {(stepNumber === 1 && <YourInfo />) ||
-              (stepNumber === 2 && <Plan />) ||
-              (stepNumber === 3 && <Addons />) ||
-              (stepNumber === 4 && <Summary />)}
+            {(stepNumber === 1 && <YourInfo currentStep={stepNumber} />) ||
+              (stepNumber === 2 && <Plan currentStep={stepNumber} />) ||
+              (stepNumber === 3 && <Addons currentStep={stepNumber} />) ||
+              (stepNumber === 4 && <Summary currentStep={stepNumber} />)}
           </div>
-          <div className="flex justify-between fixed bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 md:static items-center">
+          <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 md:static items-center w-[700px]]">
             {/* {stepNumber != 1 && (
               <div
                 onClick={prevStep}

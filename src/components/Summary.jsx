@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SectionHeading from "./SectionHeading";
 
-const Summary = () => {
+const Summary = ({ currentStep }) => {
+  const [bg, setBg] = useState("black");
+
+  useEffect(() => {}, [currentStep]);
+
   return (
     <div>
       <SectionHeading
@@ -11,7 +15,7 @@ const Summary = () => {
       <div>
         <div className="bg-[#f0f6ff] rounded-xl p-5 mb-5">
           <div className="font-medium text-[#02295a] flex justify-between items-center mb-3">
-            <div className="mb-5 mr-60">
+            <div className="mb-5">
               <div>Arcade Monthly</div>
               <a className="text-[#9699ab] text-[14px] underline decoration-solid">
                 Change

@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PlanOption from "./PlanOption";
 import SectionHeading from "./SectionHeading";
 import arcadeLogo from "../assets/images/icon-arcade.svg";
 import advancedLogo from "../assets/images/icon-advanced.svg";
 import proLogo from "../assets/images/icon-pro.svg";
 
-const Plan = () => {
+const Plan = ({ currentStep }) => {
+  const [bg, setBg] = useState("black");
+  const [planOptions, setPlanOptions] = useState([
+    { id: 1, logo: arcadeLogo, title: "Arcade", price: 9 },
+    { id: 2, logo: advancedLogo, title: "Advanced", price: 12 },
+    { id: 3, logo: proLogo, title: "Pro", price: 15 },
+  ]);
+
+  useEffect(() => {}, [currentStep]);
+
   return (
     <div>
       <SectionHeading
@@ -13,9 +22,14 @@ const Plan = () => {
         desc="You have the option of monthly or yearly billing."
       />
       <div className="grid md:grid-cols-3 md:grid-rows-1 gap-4">
-        <PlanOption logo={arcadeLogo} title="Arcade" price={9} />
-        <PlanOption logo={advancedLogo} title="Advanced" price={12} />
-        <PlanOption logo={proLogo} title="Prop" price={15} />
+        {planOptions.map((planOption) => (
+          <PlanOption
+            key={planOption.id}
+            logo={planOption.logo}
+            title={planOption.title}
+            price={planOption.price}
+          />
+        ))}
       </div>
       <div className="font-medium mt-12 bg-[#fafbff] text-[#02295a] p-2 rounded-xl">
         <div className="flex justify-center items-center space-x-5 text-[14px]">
