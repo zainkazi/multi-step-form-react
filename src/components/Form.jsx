@@ -54,7 +54,8 @@ const Form = () => {
     // console.log(stepNumber);
     // console.log(yourInfo);
     // console.log(plan);
-  }, [stepNumber, yourInfo, plan]);
+    //console.log(addons);
+  }, [stepNumber, yourInfo, plan, addons]);
 
   const nextStep = () => {
     // if (
@@ -98,8 +99,20 @@ const Form = () => {
     // });
   };
 
-  const checkBox = (title, price) => {
-    console.log(title, price);
+  const checkBox = (e) => {
+    const id = parseInt(e.target.getAttribute("data-id"));
+    const title = e.target.getAttribute("data-title-name");
+    const price = parseInt(e.target.getAttribute("data-price"));
+    if (e.target.checked == true) {
+      setAddons((prevAddons) => [
+        ...prevAddons,
+        { id: id, title: price, price: price, selected: true },
+      ]);
+    } else {
+      setAddons((prevAddons) => {
+        return prevAddons.filter((addon) => addon.id != id);
+      });
+    }
   };
 
   return (

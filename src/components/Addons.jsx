@@ -10,18 +10,21 @@ const Addons = ({ currentStep, onBoxCheck }) => {
       title: "Online service",
       desc: "Access to multiplayer games",
       price: 1,
+      selected: false,
     },
     {
       id: 2,
       title: "Larger storage",
       desc: "Extra 1TB of cloud save",
       price: 2,
+      selected: false,
     },
     {
       id: 3,
       title: "Customizable profile",
       desc: "Custom theme on your profile",
       price: 2,
+      selected: false,
     },
   ]);
 
@@ -38,9 +41,11 @@ const Addons = ({ currentStep, onBoxCheck }) => {
           <AddonComponent
             onBoxCheck={onBoxCheck}
             key={addon.id}
+            id={addon.id}
             title={addon.title}
             desc={addon.desc}
             price={addon.price}
+            selected={addon.selected}
           />
         ))}
       </div>

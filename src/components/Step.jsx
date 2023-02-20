@@ -5,7 +5,7 @@ const Step = ({ number, title, active }) => {
   useEffect(() => {
     if (active) setBg("bg-[#adbeff]");
     else setBg("");
-  });
+  }, [active]);
 
   return (
     <div className="flex text-left space-x-7 text-white">
