@@ -12,26 +12,94 @@ const Form = () => {
   const [stepNumber, setStepNumber] = useState(() => 1);
   const [goBackVisible, setGoBackVisible] = useState("invisible");
   const [steps, setSteps] = useState([
-    { id: 1, title: "YOUR INFO", active: false },
+    { id: 1, title: "YOUR INFO", active: true },
     { id: 2, title: "SELECT PLAN", active: false },
     { id: 3, title: "ADD-ONS", active: false },
     { id: 4, title: "SUMMARY", active: false },
   ]);
 
+  const [yourInfo, setYourInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  const [plan, setPlan] = useState({
+    title: "",
+    price: 0,
+    yearly: false,
+  });
+
+  const [addons, setAddons] = useState([]);
+
   useEffect(() => {
+    setSteps((prevSteps) => {
+      const updatedSteps = prevSteps.map((step) => {
+        if (step.id === stepNumber) {
+          return { ...step, active: true };
+        } else {
+          return { ...step, active: false };
+        }
+      });
+      return updatedSteps;
+    });
     if (stepNumber > 1) {
       setGoBackVisible("visible");
     } else {
       setGoBackVisible("invisible");
     }
-  }, [stepNumber]);
+
+    // console.log(steps);
+    // console.log(stepNumber);
+    // console.log(yourInfo);
+    // console.log(plan);
+  }, [stepNumber, yourInfo, plan]);
 
   const nextStep = () => {
+    // if (
+    //   yourInfo.name.length == 0 ||
+    //   yourInfo.email.length == 0 ||
+    //   yourInfo.phone.length == 0
+    // ) {
+    //   setIsEmpty(true);
+    //   return;
+    // } else {
+    //   setIsEmpty(false);
+    // }
+
     setStepNumber((prevStep) => prevStep + 1);
   };
 
   const prevStep = () => {
     setStepNumber((prevStep) => prevStep - 1);
+  };
+
+  const changeYourInfo = (event) => {
+    setYourInfo((prevInfo) => {
+      return { ...prevInfo, [event.target.name]: event.target.value };
+    });
+  };
+
+  const selectPlan = (title, price) => {
+    setPlan((prevPlan) => {
+      return { ...prevPlan, title: title, price: price };
+    });
+  };
+  const toggleDuration = () => {
+    // let isYearly = null;
+    // if (plan.yearly == false) {
+    //   isYearly = true;
+    // } else {
+    //   isYearly = false;
+    // }
+    // setPlan((prevPlan) => {
+    //   return { ...prevPlan, yearly: true };
+    // });
+  };
+
+  const checkBox = (title, price) => {
+    console.log(title, price);
   };
 
   return (
@@ -58,9 +126,24 @@ const Form = () => {
 
         <div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl mx-8 px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
           <div>
-            {(stepNumber === 1 && <YourInfo currentStep={stepNumber} />) ||
-              (stepNumber === 2 && <Plan currentStep={stepNumber} />) ||
-              (stepNumber === 3 && <Addons currentStep={stepNumber} />) ||
+            {(stepNumber === 1 && (
+              <YourInfo
+                onChangeYourInfo={changeYourInfo}
+                yourInfo={yourInfo}
+                currentStep={stepNumber}
+                isEmpty={isEmpty}
+              />
+            )) ||
+              (stepNumber === 2 && (
+                <Plan
+                  onPlanSelect={selectPlan}
+                  onToggleDuration={toggleDuration}
+                  currentStep={stepNumber}
+                />
+              )) ||
+              (stepNumber === 3 && (
+                <Addons onBoxCheck={checkBox} currentStep={stepNumber} />
+              )) ||
               (stepNumber === 4 && <Summary currentStep={stepNumber} />)}
           </div>
           <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 md:static items-center w-[700px]]">
@@ -74,18 +157,18 @@ const Form = () => {
             )} */}
             <div
               onClick={prevStep}
-              className={`font-medium text-[#9699ab] cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
+              className={`font-medium text-[#9699ab] select-none cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
             >
               Go back
             </div>
             {stepNumber === 4 ? (
-              <div className="font-medium bg-[#473dff] text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90">
+              <div className="font-medium bg-[#473dff] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90">
                 Confirm
               </div>
             ) : (
               <div
                 onClick={nextStep}
-                className="font-medium bg-[#02295a] text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
+                className="font-medium bg-[#02295a] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
               >
                 Next Step
               </div>

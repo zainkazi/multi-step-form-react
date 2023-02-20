@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const Step = ({ number, title, stepActive }) => {
-  useEffect(() => {});
+const Step = ({ number, title, active }) => {
+  const [bg, setBg] = useState("");
+  useEffect(() => {
+    if (active) setBg("bg-[#adbeff]");
+    else setBg("");
+  });
 
   return (
     <div className="flex text-left space-x-7 text-white">
-      <div className="font-bold border p-2 text-center w-10 h-10 rounded-full">
+      <div
+        className={`font-bold border p-2 ${bg} text-center w-10 h-10 rounded-full`}
+      >
         {number}
       </div>
       <div className="hidden md:block">

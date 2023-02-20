@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-const PlanOption = ({ logo, title, price }) => {
+const PlanOption = ({ logo, title, price, onPlanSelect }) => {
+  const [bg, changeBg] = useState("");
+
+  // const onPlanSelect = () => {
+  //   changeBg("bg-[#d6d9e6]");
+  // };
+
   return (
-    <div className="border border-[#d6d9e6] rounded-xl flex flex-row md:flex-col justify-start md:justify-between items-left pt-5 px-5 pr-14 cursor-pointer hover:border-[#473dff] focus:bg-violet-700">
+    <div
+      onClick={() => onPlanSelect(title, price)}
+      className={`${bg} border border-[#d6d9e6] rounded-xl flex flex-row md:flex-col justify-start md:justify-between items-left pt-5 px-5 pr-14 cursor-pointer hover:border-[#473dff] focus:bg-violet-700`}
+    >
       <div className="mb-5 md:mb-10 mr-10 md:mr-0">
         <img src={logo} />
       </div>

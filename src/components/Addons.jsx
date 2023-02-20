@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import AddonComponent from "./AddonComponent";
 import SectionHeading from "./SectionHeading";
 
-const Addons = ({ currentStep }) => {
+const Addons = ({ currentStep, onBoxCheck }) => {
   const [bg, setBg] = useState("black");
-  const [addons, setAddons] = useState([
+  const [addonOptions, setAddonOptions] = useState([
     {
       id: 1,
       title: "Online service",
@@ -34,8 +34,9 @@ const Addons = ({ currentStep }) => {
         desc="Add-ons help enhance your gaming experience."
       />
       <div className="space-y-5">
-        {addons.map((addon) => (
+        {addonOptions.map((addon) => (
           <AddonComponent
+            onBoxCheck={onBoxCheck}
             key={addon.id}
             title={addon.title}
             desc={addon.desc}
