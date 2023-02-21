@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PlanOption from "./PlanOption";
 import SectionHeading from "./SectionHeading";
-import arcadeLogo from "../assets/images/icon-arcade.svg";
-import advancedLogo from "../assets/images/icon-advanced.svg";
-import proLogo from "../assets/images/icon-pro.svg";
 
-const Plan = ({ currentStep, onPlanSelect, onToggleDuration }) => {
+const Plan = ({ currentStep, onPlanSelect, onToggleDuration, planOptions }) => {
   const [bg, setBg] = useState("black");
-  const [planOptions, setPlanOptions] = useState([
-    { id: 1, logo: arcadeLogo, title: "Arcade", price: 9 },
-    { id: 2, logo: advancedLogo, title: "Advanced", price: 12 },
-    { id: 3, logo: proLogo, title: "Pro", price: 15 },
-  ]);
 
-  useEffect(() => {}, [currentStep]);
+  useEffect(() => {}, []);
 
   return (
     <div>
@@ -26,9 +18,11 @@ const Plan = ({ currentStep, onPlanSelect, onToggleDuration }) => {
           <PlanOption
             onPlanSelect={onPlanSelect}
             key={planOption.id}
+            id={planOption.id}
             logo={planOption.logo}
             title={planOption.title}
             price={planOption.price}
+            selected={planOption.selected}
           />
         ))}
       </div>

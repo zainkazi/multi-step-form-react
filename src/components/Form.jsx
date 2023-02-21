@@ -8,6 +8,10 @@ import Addons from "./Addons";
 import Summary from "./Summary";
 import Thankyou from "./Thankyou";
 
+import arcadeLogo from "../assets/images/icon-arcade.svg";
+import advancedLogo from "../assets/images/icon-advanced.svg";
+import proLogo from "../assets/images/icon-pro.svg";
+
 const Form = () => {
   const [stepNumber, setStepNumber] = useState(() => 1);
   const [goBackVisible, setGoBackVisible] = useState("invisible");
@@ -30,6 +34,42 @@ const Form = () => {
     price: 0,
     yearly: false,
   });
+
+  const [addonOptions, setAddonOptions] = useState([
+    {
+      id: 1,
+      title: "Online service",
+      desc: "Access to multiplayer games",
+      price: 1,
+      selected: false,
+    },
+    {
+      id: 2,
+      title: "Larger storage",
+      desc: "Extra 1TB of cloud save",
+      price: 2,
+      selected: false,
+    },
+    {
+      id: 3,
+      title: "Customizable profile",
+      desc: "Custom theme on your profile",
+      price: 2,
+      selected: false,
+    },
+  ]);
+
+  const [planOptions, setPlanOptions] = useState([
+    { id: 1, logo: arcadeLogo, title: "Arcade", price: 9, selected: false },
+    {
+      id: 2,
+      logo: advancedLogo,
+      title: "Advanced",
+      price: 12,
+      selected: false,
+    },
+    { id: 3, logo: proLogo, title: "Pro", price: 15, selected: false },
+  ]);
 
   const [addons, setAddons] = useState([]);
 
@@ -54,8 +94,11 @@ const Form = () => {
     // console.log(stepNumber);
     // console.log(yourInfo);
     // console.log(plan);
-    //console.log(addons);
-  }, [stepNumber, yourInfo, plan, addons]);
+    // console.log(addons);
+    // console.log(addonOptions);
+    // console.log(planOptions);
+    // console.log(plan);
+  }, [stepNumber, yourInfo, plan, addons, addonOptions, planOptions]);
 
   const nextStep = () => {
     // if (
@@ -82,7 +125,18 @@ const Form = () => {
     });
   };
 
-  const selectPlan = (title, price) => {
+  const selectPlan = (title, price, id) => {
+    setPlanOptions((prevPlanOptions) => {
+      const updatedPlanOptions = prevPlanOptions.map((planOption) => {
+        if (planOption.id == id) {
+          return { ...planOption, selected: true };
+        } else {
+          return { ...planOption, selected: false };
+        }
+      });
+      return updatedPlanOptions;
+    });
+
     setPlan((prevPlan) => {
       return { ...prevPlan, title: title, price: price };
     });
@@ -106,13 +160,30 @@ const Form = () => {
     if (e.target.checked == true) {
       setAddons((prevAddons) => [
         ...prevAddons,
-        { id: id, title: price, price: price, selected: true },
+        { id: id, title: price, price: price },
       ]);
     } else {
       setAddons((prevAddons) => {
         return prevAddons.filter((addon) => addon.id != id);
       });
     }
+  };
+
+  const selectAddon = (id) => {
+    setAddonOptions((prevAddons) => {
+      const updatedAddons = prevAddons.map((addon) => {
+        if (addon.id == id) {
+          if (addon.selected == false) {
+            return { ...addon, selected: true };
+          } else {
+            return { ...addon, selected: false };
+          }
+        } else {
+          return addon;
+        }
+      });
+      return updatedAddons;
+    });
   };
 
   return (
@@ -152,10 +223,16 @@ const Form = () => {
                   onPlanSelect={selectPlan}
                   onToggleDuration={toggleDuration}
                   currentStep={stepNumber}
+                  planOptions={planOptions}
                 />
               )) ||
               (stepNumber === 3 && (
-                <Addons onBoxCheck={checkBox} currentStep={stepNumber} />
+                <Addons
+                  onBoxCheck={checkBox}
+                  onAddonSelect={selectAddon}
+                  currentStep={stepNumber}
+                  addonOptions={addonOptions}
+                />
               )) ||
               (stepNumber === 4 && <Summary currentStep={stepNumber} />)}
           </div>
