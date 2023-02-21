@@ -13,6 +13,7 @@ import advancedLogo from "../assets/images/icon-advanced.svg";
 import proLogo from "../assets/images/icon-pro.svg";
 
 const Form = () => {
+  //------------------------------STATES------------------------------
   const [stepNumber, setStepNumber] = useState(() => 1);
   const [goBackVisible, setGoBackVisible] = useState("invisible");
   const [steps, setSteps] = useState([
@@ -74,6 +75,7 @@ const Form = () => {
 
   const [addons, setAddons] = useState([]);
 
+  //------------------------------SIDE EFFECTS------------------------------
   useEffect(() => {
     setSteps((prevSteps) => {
       const updatedSteps = prevSteps.map((step) => {
@@ -110,6 +112,7 @@ const Form = () => {
     isPlanEmpty,
   ]);
 
+  //------------------------------FUNCTIONS------------------------------
   const nextStep = () => {
     if (stepNumber == 1) {
       if (
@@ -163,14 +166,18 @@ const Form = () => {
     });
   };
   const toggleDuration = () => {
-    // let isYearly = null;
     // if (plan.yearly == false) {
-    //   isYearly = true;
+    //   setPlan((prevPlan) => {
+    //     return { ...prevPlan, yearly: true };
+    //   });
+    //   return;
     // } else {
-    //   isYearly = false;
+    //   setPlan((prevPlan) => {
+    //     return { ...prevPlan, yearly: false };
+    //   });
     // }
     // setPlan((prevPlan) => {
-    //   return { ...prevPlan, yearly: true };
+    //   return { ...prevPlan, yearly: !plan.yearly };
     // });
   };
 
@@ -181,7 +188,7 @@ const Form = () => {
     if (e.target.checked == true) {
       setAddons((prevAddons) => [
         ...prevAddons,
-        { id: id, title: price, price: price },
+        { id: id, title: title, price: price },
       ]);
     } else {
       setAddons((prevAddons) => {
@@ -256,7 +263,13 @@ const Form = () => {
                   addonOptions={addonOptions}
                 />
               )) ||
-              (stepNumber === 4 && <Summary currentStep={stepNumber} />)}
+              (stepNumber === 4 && (
+                <Summary
+                  selectedPlan={plan}
+                  selectedAddons={addons}
+                  currentStep={stepNumber}
+                />
+              ))}
           </div>
           <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 md:static items-center w-[700px]]">
             {/* {stepNumber != 1 && (

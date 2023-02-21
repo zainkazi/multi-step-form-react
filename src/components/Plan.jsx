@@ -17,7 +17,6 @@ const Plan = ({
     } else {
       setErrorDisplay("invisible");
     }
-    console.log(isPlanEmpty);
   }, [isPlanEmpty]);
 
   return (
