@@ -2,10 +2,23 @@ import React, { useState, useEffect } from "react";
 import PlanOption from "./PlanOption";
 import SectionHeading from "./SectionHeading";
 
-const Plan = ({ currentStep, onPlanSelect, onToggleDuration, planOptions }) => {
-  const [bg, setBg] = useState("black");
+const Plan = ({
+  currentStep,
+  onPlanSelect,
+  onToggleDuration,
+  planOptions,
+  isPlanEmpty,
+}) => {
+  const [errorDisplay, setErrorDisplay] = useState("invisible");
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (isPlanEmpty) {
+      setErrorDisplay("block");
+    } else {
+      setErrorDisplay("invisible");
+    }
+    console.log(isPlanEmpty);
+  }, [isPlanEmpty]);
 
   return (
     <div>
@@ -25,6 +38,11 @@ const Plan = ({ currentStep, onPlanSelect, onToggleDuration, planOptions }) => {
             selected={planOption.selected}
           />
         ))}
+      </div>
+      <div
+        className={`${errorDisplay} font-medium text-[#ed3548] mt-5 text-center`}
+      >
+        Please select a plan!
       </div>
       <div className="font-medium mt-12 bg-[#fafbff] text-[#02295a] p-2 rounded-xl">
         <div className="flex justify-center items-center space-x-5 text-[14px]">

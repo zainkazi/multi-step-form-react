@@ -9,11 +9,16 @@ const FormField = ({
   isEmpty,
 }) => {
   const [displayRequired, setDisplayRequired] = useState("hidden");
+  const [redBorder, setRedBorder] = useState("border-[#d6d9e6]");
+
   useEffect(() => {
     if (isEmpty == true) {
       setDisplayRequired("block");
+      setRedBorder("border-[#ed3548]");
     }
-  }, []);
+    // console.log(displayRequired);
+    // console.log(isEmpty);
+  }, [isEmpty]);
 
   return (
     <div>
@@ -29,7 +34,7 @@ const FormField = ({
         <input
           onChange={onChangeYourInfo}
           name={name}
-          className="font-medium w-full mt-1 p-2 pl-3 rounded-full rounded-lg border border-[#d6d9e6] text-[#02295a] text-[15px] hover:border-[#02295a] focus:border-white focus:ring-[#bfe2fd]"
+          className={`font-medium w-full mt-1 p-2 pl-3 rounded-full rounded-lg border ${redBorder} text-[#02295a] text-[15px] hover:border-[#02295a] focus:border-white focus:ring-[#bfe2fd]`}
           type="text"
           placeholder={placeholder}
           value={value}

@@ -28,6 +28,7 @@ const Form = () => {
     phone: "",
   });
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isPlanEmpty, setIsPlanEmpty] = useState(false);
 
   const [plan, setPlan] = useState({
     title: "",
@@ -98,19 +99,39 @@ const Form = () => {
     // console.log(addonOptions);
     // console.log(planOptions);
     // console.log(plan);
-  }, [stepNumber, yourInfo, plan, addons, addonOptions, planOptions]);
+    // console.log(isPlanEmpty);
+  }, [
+    stepNumber,
+    yourInfo,
+    plan,
+    addons,
+    addonOptions,
+    planOptions,
+    isPlanEmpty,
+  ]);
 
   const nextStep = () => {
-    // if (
-    //   yourInfo.name.length == 0 ||
-    //   yourInfo.email.length == 0 ||
-    //   yourInfo.phone.length == 0
-    // ) {
-    //   setIsEmpty(true);
-    //   return;
-    // } else {
-    //   setIsEmpty(false);
-    // }
+    if (stepNumber == 1) {
+      if (
+        yourInfo.name.length == 0 ||
+        yourInfo.email.length == 0 ||
+        yourInfo.phone.length == 0
+      ) {
+        setIsEmpty(true);
+        return;
+      } else {
+        setIsEmpty(false);
+      }
+    }
+
+    if (stepNumber == 2) {
+      if (plan.title.length == 0) {
+        setIsPlanEmpty(true);
+        return;
+      } else {
+        setIsPlanEmpty(false);
+      }
+    }
 
     setStepNumber((prevStep) => prevStep + 1);
   };
@@ -224,6 +245,7 @@ const Form = () => {
                   onToggleDuration={toggleDuration}
                   currentStep={stepNumber}
                   planOptions={planOptions}
+                  isPlanEmpty={isPlanEmpty}
                 />
               )) ||
               (stepNumber === 3 && (
