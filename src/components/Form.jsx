@@ -75,6 +75,8 @@ const Form = () => {
 
   const [addons, setAddons] = useState([]);
 
+  const [displayThankyou, setDisplayThankyou] = useState(false);
+
   //------------------------------SIDE EFFECTS------------------------------
   useEffect(() => {
     setSteps((prevSteps) => {
@@ -102,6 +104,7 @@ const Form = () => {
     // console.log(planOptions);
     // console.log(plan);
     // console.log(isPlanEmpty);
+    // console.log(displayThankyou);
   }, [
     stepNumber,
     yourInfo,
@@ -110,6 +113,7 @@ const Form = () => {
     addonOptions,
     planOptions,
     isPlanEmpty,
+    displayThankyou,
   ]);
 
   //------------------------------FUNCTIONS------------------------------
@@ -141,6 +145,10 @@ const Form = () => {
 
   const prevStep = () => {
     setStepNumber((prevStep) => prevStep - 1);
+  };
+
+  const changeClick = () => {
+    setStepNumber((prevStep) => prevStep - 2);
   };
 
   const changeYourInfo = (event) => {
@@ -235,44 +243,53 @@ const Form = () => {
             ))}
           </div>
         </div>
-
         <div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl mx-8 px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
-          <div>
-            {(stepNumber === 1 && (
-              <YourInfo
-                onChangeYourInfo={changeYourInfo}
-                yourInfo={yourInfo}
-                currentStep={stepNumber}
-                isEmpty={isEmpty}
-              />
-            )) ||
-              (stepNumber === 2 && (
-                <Plan
-                  onPlanSelect={selectPlan}
-                  onToggleDuration={toggleDuration}
-                  currentStep={stepNumber}
-                  planOptions={planOptions}
-                  isPlanEmpty={isPlanEmpty}
-                />
-              )) ||
-              (stepNumber === 3 && (
-                <Addons
-                  onBoxCheck={checkBox}
-                  onAddonSelect={selectAddon}
-                  currentStep={stepNumber}
-                  addonOptions={addonOptions}
-                />
-              )) ||
-              (stepNumber === 4 && (
-                <Summary
-                  selectedPlan={plan}
-                  selectedAddons={addons}
-                  currentStep={stepNumber}
-                />
-              ))}
-          </div>
-          <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 md:static items-center w-[700px]]">
-            {/* {stepNumber != 1 && (
+          {(displayThankyou && (
+            //<div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl mx-8 px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
+            <>
+              <Thankyou />
+            </>
+            //</div>
+          )) || (
+            // <div className="flex flex-col justify-between absolute top-40 w-[450px] md:static mb-40 rounded-2xl mx-8 px-16 pt-10 pb-16 bg-white md:px-0 md:py-5 md:mx-28 md:w-100 md:my-2">
+            <>
+              <div>
+                {(stepNumber === 1 && (
+                  <YourInfo
+                    onChangeYourInfo={changeYourInfo}
+                    yourInfo={yourInfo}
+                    currentStep={stepNumber}
+                    isEmpty={isEmpty}
+                  />
+                )) ||
+                  (stepNumber === 2 && (
+                    <Plan
+                      onPlanSelect={selectPlan}
+                      onToggleDuration={toggleDuration}
+                      currentStep={stepNumber}
+                      planOptions={planOptions}
+                      isPlanEmpty={isPlanEmpty}
+                    />
+                  )) ||
+                  (stepNumber === 3 && (
+                    <Addons
+                      onBoxCheck={checkBox}
+                      onAddonSelect={selectAddon}
+                      currentStep={stepNumber}
+                      addonOptions={addonOptions}
+                    />
+                  )) ||
+                  (stepNumber === 4 && (
+                    <Summary
+                      selectedPlan={plan}
+                      selectedAddons={addons}
+                      currentStep={stepNumber}
+                      onChangeClick={changeClick}
+                    />
+                  ))}
+              </div>
+              <div className="flex justify-between fixed px-16 bottom-0 left-0 w-full bg-white p-5 md:static md:p-0 md:static items-center w-[700px]]">
+                {/* {stepNumber != 1 && (
               <div
                 onClick={prevStep}
                 className={`font-medium text-[#9699ab] cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
@@ -280,25 +297,31 @@ const Form = () => {
                 Go back
               </div>
             )} */}
-            <div
-              onClick={prevStep}
-              className={`font-medium text-[#9699ab] select-none cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
-            >
-              Go back
-            </div>
-            {stepNumber === 4 ? (
-              <div className="font-medium bg-[#473dff] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90">
-                Confirm
+                <div
+                  onClick={prevStep}
+                  className={`font-medium text-[#9699ab] select-none cursor-pointer transition duration-100 hover:text-[#02295a] ${goBackVisible}`}
+                >
+                  Go back
+                </div>
+                {stepNumber === 4 ? (
+                  <div
+                    onClick={() => setDisplayThankyou(true)}
+                    className="font-medium bg-[#473dff] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
+                  >
+                    Confirm
+                  </div>
+                ) : (
+                  <div
+                    onClick={nextStep}
+                    className="font-medium bg-[#02295a] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
+                  >
+                    Next Step
+                  </div>
+                )}
               </div>
-            ) : (
-              <div
-                onClick={nextStep}
-                className="font-medium bg-[#02295a] select-none text-white py-3 px-5 rounded-lg cursor-pointer transition duration-100 hover:opacity-90"
-              >
-                Next Step
-              </div>
-            )}
-          </div>
+            </>
+            // </div>
+          )}
         </div>
       </div>
     </div>

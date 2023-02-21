@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import SectionHeading from "./SectionHeading";
 
-const Summary = ({ currentStep, selectedPlan, selectedAddons }) => {
+const Summary = ({
+  currentStep,
+  selectedPlan,
+  selectedAddons,
+  onChangeClick,
+}) => {
   const [planPrice, setPlanPrice] = useState(() => selectedPlan.price);
   const [addonsPrice, setAddonsPrice] = useState(() => {
     if (selectedAddons.length == 0) {
@@ -20,8 +25,8 @@ const Summary = ({ currentStep, selectedPlan, selectedAddons }) => {
     // console.log(planPrice);
     // console.log(addonsPrice);
     // console.log(grandTotal);
-    console.log(selectedPlan);
-    console.log(selectedAddons);
+    // console.log(selectedPlan);
+    // console.log(selectedAddons);
   }, [selectedPlan, selectedAddons]);
 
   return (
@@ -35,7 +40,10 @@ const Summary = ({ currentStep, selectedPlan, selectedAddons }) => {
           <div className="font-medium text-[#02295a] flex justify-between items-center mb-3">
             <div className="mb-5">
               <div>{selectedPlan.title} Monthly</div>
-              <a className="text-[#9699ab] text-[14px] underline decoration-solid">
+              <a
+                onClick={onChangeClick}
+                className="text-[#9699ab] text-[14px] cursor-pointer underline decoration-solid"
+              >
                 Change
               </a>
             </div>
