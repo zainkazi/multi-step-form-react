@@ -99,7 +99,7 @@ const Form = () => {
     // console.log(stepNumber);
     // console.log(yourInfo);
     // console.log(plan);
-    // console.log(addons);
+    //console.log(addons);
     // console.log(addonOptions);
     // console.log(planOptions);
     // console.log(plan);
@@ -203,6 +203,21 @@ const Form = () => {
         return prevAddons.filter((addon) => addon.id != id);
       });
     }
+
+    setAddonOptions((prevAddons) => {
+      const updatedAddons = prevAddons.map((addon) => {
+        if (addon.id == id) {
+          if (addon.selected == false) {
+            return { ...addon, selected: true };
+          } else {
+            return { ...addon, selected: false };
+          }
+        } else {
+          return addon;
+        }
+      });
+      return updatedAddons;
+    });
   };
 
   const selectAddon = (id) => {
