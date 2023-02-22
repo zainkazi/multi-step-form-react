@@ -6,6 +6,8 @@ const Summary = ({
   selectedPlan,
   selectedAddons,
   onChangeClick,
+  planDuration,
+  planDurationName,
 }) => {
   const [planPrice, setPlanPrice] = useState(() => selectedPlan.price);
   const [addonsPrice, setAddonsPrice] = useState(() => {
@@ -39,7 +41,9 @@ const Summary = ({
         <div className="bg-[#f0f6ff] rounded-xl p-5 mb-5">
           <div className="font-medium text-[#02295a] flex justify-between items-center mb-3">
             <div className="mb-5">
-              <div>{selectedPlan.title} Monthly</div>
+              <div>
+                {selectedPlan.title} {`(${planDurationName})`}
+              </div>
               <a
                 onClick={onChangeClick}
                 className="text-[#9699ab] text-[14px] cursor-pointer underline decoration-solid"
@@ -47,20 +51,31 @@ const Summary = ({
                 Change
               </a>
             </div>
-            <div className="font-medium">${selectedPlan.price}/mo</div>
+            <div className="font-medium">
+              ${selectedPlan.price}/{planDuration}
+            </div>
           </div>
           <div className="space-y-3 mb-10 text-[14px] border-t-2 pt-4 text-[#9699ab]">
             {selectedAddons.map((addon) => (
               <div key={addon.id} className="flex justify-between items-center">
                 <div>{addon.title}</div>
-                <div>+${addon.price}/mo</div>
+                <div>
+                  +${addon.price}/{planDuration}
+                </div>
               </div>
             ))}
           </div>
         </div>
         <div className="flex justify-between items-center px-5">
-          <div className="text-[#9699ab] text-[14px]">Total per month</div>
-          <div className="text-[#473dff] font-bold">+${grandTotal}/mo</div>
+          <div className="text-[#9699ab] text-[14px]">
+            Total per{" "}
+            {planDurationName
+              .toLowerCase()
+              .substring(0, planDurationName.length - 2)}
+          </div>
+          <div className="text-[#473dff] font-bold">
+            +${grandTotal}/{planDuration}
+          </div>
         </div>
       </div>
     </div>

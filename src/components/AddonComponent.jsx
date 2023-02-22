@@ -7,13 +7,13 @@ const AddonComponent = ({
   price,
   selected,
   onBoxCheck,
-  onAddonSelect,
+  planDuration,
 }) => {
   const [addonBg, setAddonBg] = useState("");
   const [check, setCheck] = useState(false);
   useEffect(() => {
     if (selected) {
-      setAddonBg("bg-[#d6d9e6]");
+      setAddonBg("bg-[#f0f6ff]");
       setCheck(true);
     } else {
       setAddonBg("");
@@ -57,7 +57,9 @@ const AddonComponent = ({
             <div className="text-[#9699ab] text-[14px]">{desc}</div>
           </div>
         </div>
-        <div className="text-[#adbeff] text-[14px] font-bold">+${price}/mo</div>
+        <div className="text-[#adbeff] text-[14px] font-bold">
+          +${price}/{planDuration}
+        </div>
       </div>
     </div>
   );

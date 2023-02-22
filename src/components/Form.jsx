@@ -30,6 +30,8 @@ const Form = () => {
   });
   const [isEmpty, setIsEmpty] = useState(false);
   const [isPlanEmpty, setIsPlanEmpty] = useState(false);
+  const [planDuration, setPlanDuration] = useState("mo");
+  const [planDurationName, setPlanDurationName] = useState("Monthly");
 
   const [plan, setPlan] = useState({
     title: "",
@@ -100,11 +102,12 @@ const Form = () => {
     // console.log(yourInfo);
     // console.log(plan);
     //console.log(addons);
-    // console.log(addonOptions);
     // console.log(planOptions);
+    // console.log(addonOptions);
     // console.log(plan);
     // console.log(isPlanEmpty);
     // console.log(displayThankyou);
+    // console.log(planDuration);
   }, [
     stepNumber,
     yourInfo,
@@ -174,16 +177,34 @@ const Form = () => {
     });
   };
   const toggleDuration = () => {
-    // if (plan.yearly == false) {
-    //   setPlan((prevPlan) => {
-    //     return { ...prevPlan, yearly: true };
-    //   });
-    //   return;
-    // } else {
-    //   setPlan((prevPlan) => {
-    //     return { ...prevPlan, yearly: false };
-    //   });
-    // }
+    if (plan.yearly == false) {
+      setPlan((prevPlan) => {
+        setPlanDuration("yr");
+        setPlanDurationName("Yearly");
+        // setPlanOptions((prevPlanOptions) => {
+        //   const updatedPlanOptions = prevPlanOptions.map((planOption) => {
+        //     return { ...planOption, price: planOption.price * 10 };
+        //   });
+        //   return updatedPlanOptions;
+        // });
+
+        // setAddonOptions((prevAddonOptions) => {
+        //   const updatedAddonOptions = prevAddonOptions.map((addonOption) => {
+        //     return { ...addonOption, price: addonOption.price * 10 };
+        //   });
+        //   return updatedAddonOptions;
+        // });
+
+        return { ...prevPlan, yearly: true };
+      });
+    } else {
+      setPlan((prevPlan) => {
+        setPlanDuration("mo");
+        setPlanDurationName("Monthly");
+        return { ...prevPlan, yearly: false };
+      });
+    }
+
     // setPlan((prevPlan) => {
     //   return { ...prevPlan, yearly: !plan.yearly };
     // });
@@ -220,22 +241,22 @@ const Form = () => {
     });
   };
 
-  const selectAddon = (id) => {
-    setAddonOptions((prevAddons) => {
-      const updatedAddons = prevAddons.map((addon) => {
-        if (addon.id == id) {
-          if (addon.selected == false) {
-            return { ...addon, selected: true };
-          } else {
-            return { ...addon, selected: false };
-          }
-        } else {
-          return addon;
-        }
-      });
-      return updatedAddons;
-    });
-  };
+  // const selectAddon = (id) => {
+  //   setAddonOptions((prevAddons) => {
+  //     const updatedAddons = prevAddons.map((addon) => {
+  //       if (addon.id == id) {
+  //         if (addon.selected == false) {
+  //           return { ...addon, selected: true };
+  //         } else {
+  //           return { ...addon, selected: false };
+  //         }
+  //       } else {
+  //         return addon;
+  //       }
+  //     });
+  //     return updatedAddons;
+  //   });
+  // };
 
   return (
     <div className="container">
@@ -284,14 +305,15 @@ const Form = () => {
                       currentStep={stepNumber}
                       planOptions={planOptions}
                       isPlanEmpty={isPlanEmpty}
+                      planDuration={planDuration}
                     />
                   )) ||
                   (stepNumber === 3 && (
                     <Addons
                       onBoxCheck={checkBox}
-                      onAddonSelect={selectAddon}
                       currentStep={stepNumber}
                       addonOptions={addonOptions}
+                      planDuration={planDuration}
                     />
                   )) ||
                   (stepNumber === 4 && (
@@ -299,6 +321,8 @@ const Form = () => {
                       selectedPlan={plan}
                       selectedAddons={addons}
                       currentStep={stepNumber}
+                      planDuration={planDuration}
+                      planDurationName={planDurationName}
                       onChangeClick={changeClick}
                     />
                   ))}

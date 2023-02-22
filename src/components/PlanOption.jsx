@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from "react";
 
-const PlanOption = ({ id, logo, title, price, onPlanSelect, selected }) => {
+const PlanOption = ({
+  id,
+  logo,
+  title,
+  price,
+  onPlanSelect,
+  selected,
+  planDuration,
+}) => {
   const [bg, changeBg] = useState("");
+  const [displayTwoMonths, setDisplayTwoMonths] = useState("invisible");
 
   useEffect(() => {
+    if (planDuration == "mo") {
+      setDisplayTwoMonths("invisible");
+    } else {
+      setDisplayTwoMonths("block");
+    }
+
     if (selected) {
-      changeBg("bg-[#d6d9e6]");
+      changeBg("bg-[#f0f6ff]");
     } else {
       changeBg("");
     }
-  }, [selected]);
+  }, [selected, planDuration]);
 
   return (
     <div
@@ -21,7 +36,14 @@ const PlanOption = ({ id, logo, title, price, onPlanSelect, selected }) => {
       </div>
       <div>
         <div className="text-[#02295a] font-medium">{title}</div>
-        <div className="text-[14px] text-[#9699ab] mb-3">${price}/mo</div>
+        <div className="text-[14px] text-[#9699ab] mb-3">
+          ${price}/{planDuration}
+        </div>
+        <div
+          className={`${displayTwoMonths} font-medium text-[#02295a] mb-3 -mt-2 w-[100px] text-[13px]`}
+        >
+          2 months free
+        </div>
       </div>
     </div>
   );

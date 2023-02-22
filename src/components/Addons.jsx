@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddonComponent from "./AddonComponent";
 import SectionHeading from "./SectionHeading";
 
-const Addons = ({ currentStep, onBoxCheck, onAddonSelect, addonOptions }) => {
+const Addons = ({ currentStep, onBoxCheck, planDuration, addonOptions }) => {
   const [bg, setBg] = useState("black");
 
   useEffect(() => {}, []);
@@ -16,7 +16,6 @@ const Addons = ({ currentStep, onBoxCheck, onAddonSelect, addonOptions }) => {
       <div className="space-y-5">
         {addonOptions.map((addon) => (
           <AddonComponent
-            onAddonSelect={onAddonSelect}
             onBoxCheck={onBoxCheck}
             key={addon.id}
             id={addon.id}
@@ -24,6 +23,7 @@ const Addons = ({ currentStep, onBoxCheck, onAddonSelect, addonOptions }) => {
             desc={addon.desc}
             price={addon.price}
             selected={addon.selected}
+            planDuration={planDuration}
           />
         ))}
       </div>
