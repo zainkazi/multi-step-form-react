@@ -39,12 +39,44 @@ const Form = () => {
     yearly: false,
   });
 
+  const [planOptions, setPlanOptions] = useState([
+    {
+      id: 1,
+      logo: arcadeLogo,
+      title: "Arcade",
+      price: 9,
+      monthlyPrice: 9,
+      yearlyPrice: 90,
+      selected: false,
+    },
+    {
+      id: 2,
+      logo: advancedLogo,
+      title: "Advanced",
+      price: 12,
+      monthlyPrice: 12,
+      yearlyPrice: 120,
+      selected: false,
+    },
+    {
+      id: 3,
+      logo: proLogo,
+      title: "Pro",
+      price: 15,
+      monthlyPrice: 15,
+      yearlyPrice: 150,
+      selected: false,
+    },
+  ]);
+
   const [addonOptions, setAddonOptions] = useState([
     {
       id: 1,
       title: "Online service",
       desc: "Access to multiplayer games",
       price: 1,
+      monthlyPrice: 1,
+      yearlyPrice: 10,
       selected: false,
     },
     {
@@ -52,6 +84,8 @@ const Form = () => {
       title: "Larger storage",
       desc: "Extra 1TB of cloud save",
       price: 2,
+      monthlyPrice: 2,
+      yearlyPrice: 20,
       selected: false,
     },
     {
@@ -59,20 +93,10 @@ const Form = () => {
       title: "Customizable profile",
       desc: "Custom theme on your profile",
       price: 2,
+      monthlyPrice: 2,
+      yearlyPrice: 20,
       selected: false,
     },
-  ]);
-
-  const [planOptions, setPlanOptions] = useState([
-    { id: 1, logo: arcadeLogo, title: "Arcade", price: 9, selected: false },
-    {
-      id: 2,
-      logo: advancedLogo,
-      title: "Advanced",
-      price: 12,
-      selected: false,
-    },
-    { id: 3, logo: proLogo, title: "Pro", price: 15, selected: false },
   ]);
 
   const [addons, setAddons] = useState([]);
@@ -181,19 +205,20 @@ const Form = () => {
       setPlan((prevPlan) => {
         setPlanDuration("yr");
         setPlanDurationName("Yearly");
-        // setPlanOptions((prevPlanOptions) => {
-        //   const updatedPlanOptions = prevPlanOptions.map((planOption) => {
-        //     return { ...planOption, price: planOption.price * 10 };
-        //   });
-        //   return updatedPlanOptions;
-        // });
 
-        // setAddonOptions((prevAddonOptions) => {
-        //   const updatedAddonOptions = prevAddonOptions.map((addonOption) => {
-        //     return { ...addonOption, price: addonOption.price * 10 };
-        //   });
-        //   return updatedAddonOptions;
-        // });
+        setPlanOptions((prevPlanOptions) => {
+          const updatedPlanOptions = prevPlanOptions.map((planOption) => {
+            return { ...planOption, price: planOption.yearlyPrice };
+          });
+          return updatedPlanOptions;
+        });
+
+        setAddonOptions((prevAddonOptions) => {
+          const updatedAddonOptions = prevAddonOptions.map((addonOption) => {
+            return { ...addonOption, price: addonOption.yearlyPrice };
+          });
+          return updatedAddonOptions;
+        });
 
         return { ...prevPlan, yearly: true };
       });
@@ -201,6 +226,21 @@ const Form = () => {
       setPlan((prevPlan) => {
         setPlanDuration("mo");
         setPlanDurationName("Monthly");
+
+        setPlanOptions((prevPlanOptions) => {
+          const updatedPlanOptions = prevPlanOptions.map((planOption) => {
+            return { ...planOption, price: planOption.monthlyPrice };
+          });
+          return updatedPlanOptions;
+        });
+
+        setAddonOptions((prevAddonOptions) => {
+          const updatedAddonOptions = prevAddonOptions.map((addonOption) => {
+            return { ...addonOption, price: addonOption.monthlyPrice };
+          });
+          return updatedAddonOptions;
+        });
+
         return { ...prevPlan, yearly: false };
       });
     }
