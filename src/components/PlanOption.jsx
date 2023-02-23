@@ -32,7 +32,7 @@ const PlanOption = ({
       className={`${bg} border border-[#d6d9e6] rounded-xl flex flex-row md:flex-col justify-start md:justify-between items-left pt-5 px-5 pr-14 cursor-pointer hover:border-[#473dff] focus:bg-violet-700`}
     >
       <div className="mb-5 md:mb-10 mr-10 md:mr-0">
-        <img src={logo} />
+        <img src={logo} alt="Plan Option" />
       </div>
       <div>
         <div className="text-[#02295a] font-medium">{title}</div>

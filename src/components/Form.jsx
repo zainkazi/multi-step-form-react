@@ -302,7 +302,11 @@ const Form = () => {
     <div className="container">
       <div className="bg-[#d6d9e6] md:bg-white rounded-xl md:p-3 md:flex justify-center">
         <div className="relative">
-          <img className="hidden md:block" src={BackgroundSidebar} />
+          <img
+            className="hidden md:block"
+            src={BackgroundSidebar}
+            alt="sidebar"
+          />
           <img
             className="block md:hidden w-full"
             src={BackgroundSidebarMobile}
