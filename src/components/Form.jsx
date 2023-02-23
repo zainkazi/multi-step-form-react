@@ -310,6 +310,7 @@ const Form = () => {
           <img
             className="block md:hidden w-full"
             src={BackgroundSidebarMobile}
+            alt="topbar"
           />
 
           <div className="flex justify-center mt-8 absolute inset-0 space-x-10 md:space-x-0 md:block md:mt-0 md:pl-6 md:pt-8 md:space-y-7">
